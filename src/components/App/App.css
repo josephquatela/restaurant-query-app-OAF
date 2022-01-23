@@ -1,0 +1,10 @@
+* {
+    box-sizing: border-box;
+}
+
+main {
+    background-image: url('./../../../public/Resources/background.jpg');
+    background-color: rgb(99, 99, 99);
+    background-blend-mode: multiply;
+    background-size: cover;
+}
