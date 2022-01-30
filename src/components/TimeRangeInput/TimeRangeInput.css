@@ -1,0 +1,9 @@
+.hoursContainer {
+    display: flex;
+    align-items: center;
+}
+
+.hoursContainer p {
+    padding: 0 8px;
+    margin-top: 4px;
+}

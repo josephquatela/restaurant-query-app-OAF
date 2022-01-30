@@ -4,7 +4,6 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import 'semantic-ui-css/semantic.min.css';
-import 'react-dates/initialize';
 
 
 ReactDOM.render(

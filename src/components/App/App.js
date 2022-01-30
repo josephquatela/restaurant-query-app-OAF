@@ -1,5 +1,5 @@
 import './App.css';
-import { Container, Segment } from 'semantic-ui-react';
+import { Container, Divider, Segment } from 'semantic-ui-react';
 import { InputForm } from '../InputForm/InputForm';
 
 
@@ -8,12 +8,15 @@ function App() {
   
   return (
     <div className='app'>
-      <h1>Title Here</h1>
+      <h1>Query Search Tool</h1>
       <main>
         <Container>
-          <Segment>
-            <InputForm></InputForm>
-          </Segment>
+          <div class="inputFormContainer">
+              <Divider />
+              <Segment>
+                  <InputForm />
+              </Segment>
+          </div>
         </Container>
       </main>
     </div>

@@ -53,6 +53,49 @@ export const restaurantIdOptions = [
     },
 ]
 
+export const metricCodeOptions = [
+    {
+        key: 1,
+        text: "Transaction Total Amount $",
+        value: "TotalAmount",
+    },
+    {
+        key: 2,
+        text: "Transaction Net Amount $",
+        value: "NetAmount",
+    },
+    {
+        key: 3,
+        text: "Items Sold #",
+        value: "ItemSoldQty",
+    },
+    {
+        key: 4,
+        text: "Beverages Sold #",
+        value: "BeverageQty",
+    },
+    {
+        key: 5,
+        text: "Transaction Discount Amount $",
+        value: "DiscountAmount",
+    },
+    {
+        key: 6,
+        text: "Transaction Dicount Ratio %",
+        value: "DiscountRatio",
+    },
+    {
+        key: 7,
+        text: "Item Deleted Amount $",
+        value: "ItemDeletedAmount",
+    },
+    {
+        key: 8,
+        text: "Transaction Refund Amount $",
+        value: "RefundAmount",
+    },
+]
+
 export const compareTypeOptions = [
     {
         key: 1,
@@ -79,4 +122,17 @@ export const compareTypeOptions = [
         text: '>=',
         value: 'GreaterThanOrEqual'
     },
+]
+
+export const amPmOptions = [
+    {
+        key: 1,
+        text: 'am',
+        value: 'am',
+    },
+    {
+        key: 2,
+        text: 'pm',
+        value: 'pm',
+    }
 ]
