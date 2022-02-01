@@ -5,7 +5,7 @@ import './TimeRangeInput.css';
 export function TimeRangePicker(props) {
 
     return(
-        <div class="hoursContainer">
+        <div className="hoursContainer">
             <Label ribbon>Times</Label>
             <Input placeholder='6'
             value={props.fromHour}

@@ -2,9 +2,11 @@ import './InputForm.css';
 import { Button, Form, Segment, } from 'semantic-ui-react';
 import { useState } from 'react';
 import { RestaurantIdsInput } from '../RestaurantIdsInput/RestaurantIdsInput';
-import { MetricSelectorInputs } from '../MetricSelectorInputs/MetricSelectorInputs';
 import { DatePickerInput } from '../DatePickerInput/DatePickerInput';
 import { TimeRangePicker } from '../TimeRangeInput/TimeRangeInput';
+import { MetricsList } from '../MetricsList/MetricsList';
+import { MetricSelectorInputs } from '../MetricSelectorInputs/MetricSelectorInputs';
+import { postData } from '../../Utility';
 
 export function InputForm() {
 
@@ -13,11 +15,18 @@ export function InputForm() {
 
     //Metric state vars
     const [metricDefinitions, setMetricDefinitions] = useState([]);
-    const [metricsList, setMetricsList] = useState([])
     const [metricCode, setMetricCode] = useState('');
     const [compareType, setCompareType] = useState('');
     const [metricValue, setMetricValue] = useState('');
-
+    const [metricsList, setMetricsList] = useState([
+        /* {
+            metricCode: metricCode,
+            compareType: compareType,
+            metricValue: metricValue,
+        }, */
+    ]);
+    console.log(metricsList);
+    console.log(metricCode);
     //Date state vars
     const [dateRange, setdateRange] = useState({
         startDate: null,
@@ -65,27 +74,21 @@ export function InputForm() {
     function onSubmit() {
         const requestData = {
             restaurantIds: restaurantIds,
-            fromDate: dateRange.startDate.format('YYYY-MM-DD:hh:mm'), /* figure out format */
-            toDate: dateRange.endDate.format('YYYY-MM-DD:hh:mm'),
+            fromDate: dateRange.startDate.format('YYYY-MM-DDThh:mm:ss.msZ'), 
+            toDate: dateRange.endDate.format('YYYY-MM-DDThh:mm:ss.SSSZ'),
             fromHour: parseHours(fromHour, fromHourAmPm),
             toHour: parseHours(toHour, toHourAmPm),
-            metricCritera: [
-                {
-                    metricCode: metricCode,
-                    compareType: compareType,
-                    value: parseInt(metricValue)
-                },
-            ],
+            metricCritera: metricsList
         }
         console.log(requestData);
+        postData('https://customsearchquerytoolapi.azurewebsites.net/Search/Query', requestData);
     }
-
 
     return(
         <div>
             <h2>Advanced Search</h2>
             <Form onSubmit={(event, data) => onSubmit()}>
-                <div class="inputFields">
+                <div className="inputFields">
                     <div className='inputLeft'>
                         <Segment className='fieldSegment'>
                             <Form.Field> {/* Restaurant ID Field */}
@@ -95,20 +98,24 @@ export function InputForm() {
                         </Segment>
                         <Segment className='fieldSegment'> {/* Metric Selector Fields*/}
                             <Form.Field>
+                                <MetricsList />
+
                                 <MetricSelectorInputs
-                                metricDefinitions={ metricDefinitions }
-                                setMetricDefinitions={ setMetricDefinitions }
-                                metricCode={ metricCode }
-                                onCodeChange={ (event, data) => setMetricCode(data.value) }
-                                compareType={ compareType }
-                                onCompareChange={ (event, data) => setCompareType(data.value) }
-                                metricValue={ metricValue }
-                                onValueChange={ (event, data) => setMetricValue(data.value) }
+                                metricCode={metricCode}
+                                onCodeChange={(event, data) => setMetricCode(data.value)}
+                                compareType={compareType}
+                                onCompareChange={(event, data) => setCompareType(data.value)}
+                                metricValue={metricValue}
+                                onValueChange={(event, data) => setMetricValue(data.value)}
+                                metricDefinitions={metricDefinitions}
+                                setMetricDefinitions={setMetricDefinitions}
+                                metricsList={metricsList}
+                                setMetricsList={setMetricsList}
                                 />
                             </Form.Field>
                         </Segment>
                     </div>
-                    <div class="inputRight">
+                    <div className="inputRight">
                         <Segment className='fieldSegment'> {/* Date Selections Field */}
                             <DatePickerInput
                             dateRange={ dateRange } 
@@ -134,7 +141,7 @@ export function InputForm() {
                     </div>
                 </div>
 
-                <div class="submitContainer">
+                <div className="submitContainer">
                     <Form.Field> {/* Submit Field */}
                         <Button type='submit'>Search</Button>
                     </Form.Field>

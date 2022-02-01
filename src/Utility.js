@@ -1,4 +1,21 @@
 
+export async function postData(url="", data={}) {
+    const response = await fetch(url, {
+        method: "POST",
+        cache: "no-cache",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+        console.log("Retrieved a response!");
+        return response.json();
+    } else {
+        throw response.json()
+    }
+}
 
 export const restaurantIdOptions = [
     {
@@ -50,49 +67,6 @@ export const restaurantIdOptions = [
         key: 10,
         text: 'Restaurant 10',
         value: 10,
-    },
-]
-
-export const metricCodeOptions = [
-    {
-        key: 1,
-        text: "Transaction Total Amount $",
-        value: "TotalAmount",
-    },
-    {
-        key: 2,
-        text: "Transaction Net Amount $",
-        value: "NetAmount",
-    },
-    {
-        key: 3,
-        text: "Items Sold #",
-        value: "ItemSoldQty",
-    },
-    {
-        key: 4,
-        text: "Beverages Sold #",
-        value: "BeverageQty",
-    },
-    {
-        key: 5,
-        text: "Transaction Discount Amount $",
-        value: "DiscountAmount",
-    },
-    {
-        key: 6,
-        text: "Transaction Dicount Ratio %",
-        value: "DiscountRatio",
-    },
-    {
-        key: 7,
-        text: "Item Deleted Amount $",
-        value: "ItemDeletedAmount",
-    },
-    {
-        key: 8,
-        text: "Transaction Refund Amount $",
-        value: "RefundAmount",
     },
 ]
 

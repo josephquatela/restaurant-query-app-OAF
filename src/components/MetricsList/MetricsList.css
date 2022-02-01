@@ -1,0 +1,4 @@
+.metricsListContainer {
+    display: flex;
+    flex-direction: column;
+}

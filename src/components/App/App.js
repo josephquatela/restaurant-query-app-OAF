@@ -11,7 +11,7 @@ function App() {
       <h1>Query Search Tool</h1>
       <main>
         <Container>
-          <div class="inputFormContainer">
+          <div className="inputFormContainer">
               <Divider />
               <Segment>
                   <InputForm />

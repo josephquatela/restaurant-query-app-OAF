@@ -5,7 +5,7 @@ import './RestaurantIdsInput.css';
 export function RestaurantIdsInput(props) {
 
     return (
-        <div class="restaurantIdsContainer">
+        <div className="restaurantIdsContainer">
             <Label ribbon>Restaurant IDs</Label>
             <Dropdown options={ restaurantIdOptions }
             placeholder='Select Restaurant ID'

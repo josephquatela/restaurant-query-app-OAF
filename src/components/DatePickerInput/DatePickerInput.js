@@ -18,7 +18,7 @@ export function DatePickerInput(props) {
     props.onChange(startDate, endDate);
 
     return(
-        <div class="dateContainer">
+        <div className="dateContainer">
             <Label ribbon>Dates</Label>
             <DateRangePicker
             startDate={startDate}
