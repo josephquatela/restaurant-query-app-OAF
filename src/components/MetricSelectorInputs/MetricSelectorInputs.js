@@ -34,7 +34,7 @@ export function MetricSelectorInputs(props) {
     return (
         <div>
             <div className="metricsStyleContainer">
-                <Label ribbon>Metrics</Label>
+                <Label ribbon>Metric</Label>
                 <div className="metricsContainer">
                     <Dropdown options={ mappedDefinitions }
                     placeholder='Items Sold #'
@@ -45,12 +45,12 @@ export function MetricSelectorInputs(props) {
                     placeholder='<'
                     selection
                     fluid
-                    style={{width: 50}}
+                    style={{width: 64}}
                     value={ props.compareType }
                     onChange={ props.onCompareChange } />
                     <Input placeholder='Value'
                     value={ props.metricValue }
-                    style={{width: 100}}
+                    style={{width: 80}}
                     onChange={ props.onValueChange } />
                 </div>
             </div>
@@ -64,7 +64,7 @@ export function MetricSelectorInputs(props) {
                         {
                             metricCode: props.metricCode,
                             compareType: props.compareType,
-                            value: props.metricValue,
+                            value: parseInt(props.metricValue),
                         },
                     );
                     props.setMetricsList(newMetricsList);

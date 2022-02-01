@@ -1,5 +1,5 @@
 import './InputForm.css';
-import { Button, Form, Segment, } from 'semantic-ui-react';
+import { Button, Divider, Form, Icon, Segment, } from 'semantic-ui-react';
 import { useState } from 'react';
 import { RestaurantIdsInput } from '../RestaurantIdsInput/RestaurantIdsInput';
 import { DatePickerInput } from '../DatePickerInput/DatePickerInput';
@@ -45,40 +45,35 @@ export function InputForm() {
     function parseHours(hour, hourAmPm) {
         var intHour = parseInt(hour)
         var adjustedHour;
-        var stringHour;
         if (6 <= intHour && intHour < 12 && hourAmPm === 'am') {
-            return hour;
+            return intHour;
         }
         else if (intHour === 12 && hourAmPm === 'pm') {
-            return hour;
+            return intHour;
         }
         else if (1 <= intHour && intHour < 12 && hourAmPm === 'pm') {
             adjustedHour = intHour + 12;
-            stringHour = adjustedHour.toString();
-            return stringHour
+            return adjustedHour;
         }
         else if (intHour === 12 && hourAmPm === 'am'){
             adjustedHour = intHour + 12;
-            stringHour = adjustedHour.toString();
-            return stringHour
+            return adjustedHour;
         }
         else if (1 <= intHour && intHour < 6 && hourAmPm === 'am'){
             adjustedHour = intHour + 24;
-            stringHour = adjustedHour.toString();
-            return stringHour
+            return adjustedHour;
         }
     }
-
 
 
     function onSubmit() {
         const requestData = {
             restaurantIds: restaurantIds,
-            fromDate: dateRange.startDate.format('YYYY-MM-DDThh:mm:ss.msZ'), 
-            toDate: dateRange.endDate.format('YYYY-MM-DDThh:mm:ss.SSSZ'),
+            fromDate: dateRange.startDate.format("YYYY-MM-DD"), 
+            toDate: dateRange.endDate.format("YYYY-MM-DD"),
             fromHour: parseHours(fromHour, fromHourAmPm),
             toHour: parseHours(toHour, toHourAmPm),
-            metricCritera: metricsList
+            metricCriteria: metricsList
         }
         console.log(requestData);
         postData('https://customsearchquerytoolapi.azurewebsites.net/Search/Query', requestData);
@@ -98,8 +93,8 @@ export function InputForm() {
                         </Segment>
                         <Segment className='fieldSegment'> {/* Metric Selector Fields*/}
                             <Form.Field>
-                                <MetricsList />
-
+                                <MetricsList metricsList={metricsList} />
+                                <Divider></Divider>
                                 <MetricSelectorInputs
                                 metricCode={metricCode}
                                 onCodeChange={(event, data) => setMetricCode(data.value)}
@@ -143,7 +138,14 @@ export function InputForm() {
 
                 <div className="submitContainer">
                     <Form.Field> {/* Submit Field */}
-                        <Button type='submit'>Search</Button>
+                        <Button 
+                        animated
+                        type='submit'>
+                            <Button.Content visible>Search</Button.Content>
+                            <Button.Content hidden>
+                                <Icon name='angle double right' />
+                            </Button.Content>
+                        </Button>
                     </Form.Field>
                 </div>
             </Form>

@@ -2,18 +2,20 @@
 export async function postData(url="", data={}) {
     const response = await fetch(url, {
         method: "POST",
+        mode: "no-cors",
         cache: "no-cache",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
         body: JSON.stringify(data)
     });
+    console.log(JSON.stringify(data))
 
     if (response.ok) {
         console.log("Retrieved a response!");
         return response.json();
     } else {
-        throw response.json()
+        throw response.json();
     }
 }
 
