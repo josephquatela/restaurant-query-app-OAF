@@ -1,4 +1,4 @@
-import { Label } from "semantic-ui-react";
+import { } from "semantic-ui-react";
 
 import { Grid, Segment } from 'semantic-ui-react';
 import './ResultsTable.css';
@@ -8,51 +8,51 @@ export function ResultsTable(props) {
     return (
         <div className="resultsTableContainer">
             <Segment>
-                <Grid centered columns={12} divided stretched>
+                <Grid centered columns={12} divided stretched verticalAlign="middle">
                     <Grid.Row>
                         <Grid.Column textAlign="center">
-                            <Label size="mini">RestaurantID</Label>
+                            <p className='resultsTableP'>Restaurant ID</p>
                         </Grid.Column>
                         <Grid.Column textAlign="center">
-                            <Label size="mini">BusDt</Label>
+                            <p className='resultsTableP'>BusDt</p>
                         </Grid.Column>
                         <Grid.Column textAlign="center">
-                            <Label size="mini">OrderNumber</Label>
+                            <p className='resultsTableP'>Order Number</p>
                         </Grid.Column>
                         <Grid.Column textAlign="center">
-                            <Label size="mini">OrderTime</Label>
+                            <p className='resultsTableP'>Order Time</p>
                         </Grid.Column>
                         <Grid.Column textAlign="center">
-                            <Label size="mini">TransactionTotalAmount</Label>
+                            <p className='resultsTableP'>Transaction Total Amount</p>
                         </Grid.Column>
                         <Grid.Column textAlign="center">
-                            <Label size="mini">TransactionNetAmount</Label>
+                            <p className='resultsTableP'>Transaction Net Amount</p>
                         </Grid.Column>
                         <Grid.Column textAlign="center">
-                            <Label size="mini">ItemSoldQty</Label>
+                            <p className='resultsTableP'>Item Sold Qty</p>
                         </Grid.Column>
                         <Grid.Column textAlign="center">
-                            <Label size="mini">BeverageQty</Label>
+                            <p className='resultsTableP'>Beverage Qty</p>
                         </Grid.Column>
                         <Grid.Column textAlign="center">
-                            <Label size="mini">DiscountAmount</Label>
+                            <p className='resultsTableP'>Discount Amount</p>
                         </Grid.Column>
                         <Grid.Column textAlign="center">
-                            <Label size="mini">ItemDeletedAmount</Label>
+                            <p className='resultsTableP'>Item Deleted Amount</p>
                         </Grid.Column>
                         <Grid.Column textAlign="center">
-                            <Label size="mini">DiscountRatio</Label>
+                            <p className='resultsTableP'>Discount Ratio</p>
                         </Grid.Column>
                         <Grid.Column textAlign="center">
-                            <Label size="mini">RefundAmount</Label>
+                            <p className='resultsTableP'>Refund Amount</p>
                         </Grid.Column>
                     </Grid.Row>
-                    <Grid.Row>
+                    <Grid.Row color="grey">
                         <Grid.Column textAlign="center">
-                            
+                            Test
                         </Grid.Column>
                         <Grid.Column textAlign="center">
-
+                            Test
                         </Grid.Column>
                         <Grid.Column textAlign="center">
 

@@ -10,7 +10,7 @@ function App() {
     <div className='app'>
       <h1>Query Search Tool</h1>
       <main style={{minHeight: "100vh"}}>
-        <Container>
+        <Container >
           <div className="inputFormContainer">
               <Divider />
               <Segment>
@@ -18,7 +18,8 @@ function App() {
               </Segment>
           </div>
         </Container>
-        <h1 style={{color: "white", marginTop: 24}}>Results</h1>
+        <h1 style={{color: "white", marginTop: 24, borderRadius: 8, backgroundColor: "rgb(241, 190, 95)", 
+        maxWidth: 256, margin: "24px auto 8px"}}>Results</h1>
         <Container fluid>
           <ResultsList />
         </Container>

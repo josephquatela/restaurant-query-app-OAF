@@ -3,7 +3,7 @@
 }
 
 main {
-    background-image: url('./../../../public/Resources/background.jpg');
+    background-image: url('./../../../public/Resources/background.jpeg');
     background-color: rgb(99, 99, 99);
     background-blend-mode: multiply;
     background-size: cover;

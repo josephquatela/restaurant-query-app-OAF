@@ -93,7 +93,10 @@ export function InputForm() {
                         </Segment>
                         <Segment className='fieldSegment'> {/* Metric Selector Fields*/}
                             <Form.Field>
-                                <MetricsList metricsList={metricsList} />
+                                <MetricsList 
+                                metricsList={metricsList}
+                                setMetricsList={setMetricsList}
+                                />
                                 <Divider></Divider>
                                 <MetricSelectorInputs
                                 metricCode={metricCode}
