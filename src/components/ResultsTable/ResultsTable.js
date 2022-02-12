@@ -1,22 +1,10 @@
 import { } from "semantic-ui-react";
 
 import { Grid, Segment } from 'semantic-ui-react';
+import { parseReturnData } from "../../Utility";
 import './ResultsTable.css';
 
 export function ResultsTable(props) {
-
-    function parseReturnData(data, dataType = undefined) {
-        const type = typeof(data);
-        if (dataType == "discountRatio") {
-            const roundedPercent = (Math.round(data * 10000) / 10000) * 100
-            return roundedPercent.toString() + "%";
-        } else if (type === 'number') {
-            return data.toString();
-        } else if (type === 'string') {
-            return data.slice(0, 10) + " " + data.slice(11);
-        }
-        console.log("data " + data);
-    }
 
     return (
         <div className="resultsTableContainer">

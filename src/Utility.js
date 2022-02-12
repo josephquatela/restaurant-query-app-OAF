@@ -110,3 +110,15 @@ export const amPmOptions = [
         value: 'pm',
     }
 ]
+
+export function parseReturnData(data, dataType = undefined) {
+    const type = typeof(data);
+    if (dataType == "discountRatio") {
+        const roundedPercent = (Math.round(data * 10000) / 10000) * 100
+        return roundedPercent.toString() + "%";
+    } else if (type === 'number') {
+        return "$" + data.toString();
+    } else if (type === 'string') {
+        return data.slice(0, 10) + " " + data.slice(11);
+    }
+}

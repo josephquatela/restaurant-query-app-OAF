@@ -1,0 +1,7 @@
+.avgRestaurantContainer {
+    display: flex;
+}
+
+.avgRestaurantTitle {
+    min-width: max-content;
+}
