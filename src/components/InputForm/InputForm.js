@@ -1,32 +1,25 @@
 import './InputForm.css';
-import { Button, Divider, Form, Icon, Segment, } from 'semantic-ui-react';
+import { Button, Form, Icon, Segment, } from 'semantic-ui-react';
 import { useState } from 'react';
 import { RestaurantIdsInput } from '../RestaurantIdsInput/RestaurantIdsInput';
 import { DatePickerInput } from '../DatePickerInput/DatePickerInput';
 import { TimeRangePicker } from '../TimeRangeInput/TimeRangeInput';
-import { MetricsList } from '../MetricsList/MetricsList';
 import { MetricSelectorInputs } from '../MetricSelectorInputs/MetricSelectorInputs';
 import { postData } from '../../Utility';
 
-export function InputForm() {
+export function InputForm(props) {
 
     //Restaurant ID state var
     const [restaurantIds, setRestaurantIds] = useState([]);
 
     //Metric state vars
     const [metricDefinitions, setMetricDefinitions] = useState([]);
-    const [metricCode, setMetricCode] = useState('');
-    const [compareType, setCompareType] = useState('');
-    const [metricValue, setMetricValue] = useState('');
-    const [metricsList, setMetricsList] = useState([
-        /* {
-            metricCode: metricCode,
-            compareType: compareType,
-            metricValue: metricValue,
-        }, */
-    ]);
-    console.log(metricsList);
-    console.log(metricCode);
+    const [metricsList, setMetricsList] = useState([{
+        metricCode: "",
+        compareType: "",
+        metricValue: "",
+    }]);
+
     //Date state vars
     const [dateRange, setdateRange] = useState({
         startDate: null,
@@ -65,8 +58,20 @@ export function InputForm() {
         }
     }
 
+    function parseMetricValues() {
+        const newMetricsList = [];
+        for (var i = 0; i < metricsList.length; i++) {
+            newMetricsList.push(metricsList[i]);
+        }
+        newMetricsList.forEach(metric => {
+            metric.metricValue = parseFloat(metric.metricValue);
+        });
+        setMetricsList(newMetricsList);
+    }
 
     function onSubmit() {
+        parseMetricValues();
+
         const requestData = {
             restaurantIds: restaurantIds,
             fromDate: dateRange.startDate.format("YYYY-MM-DD"), 
@@ -75,8 +80,14 @@ export function InputForm() {
             toHour: parseHours(toHour, toHourAmPm),
             metricCriteria: metricsList
         }
+
         console.log(requestData);
-        postData('https://customsearchquerytoolapi.azurewebsites.net/Search/Query', requestData);
+        
+        postData('https://customsearchquerytoolapi.azurewebsites.net/Search/Query', requestData)
+        .then(resultsData => {
+            props.setReturnedData(resultsData);
+            props.setActivePageContent(resultsData.slice(0, 10));
+        });
     }
 
     return(
@@ -93,18 +104,12 @@ export function InputForm() {
                         </Segment>
                         <Segment className='fieldSegment'> {/* Metric Selector Fields*/}
                             <Form.Field>
-                                <MetricsList 
+                                {/* <MetricsList 
                                 metricsList={metricsList}
                                 setMetricsList={setMetricsList}
                                 />
-                                <Divider></Divider>
+                                <Divider></Divider> */}
                                 <MetricSelectorInputs
-                                metricCode={metricCode}
-                                onCodeChange={(event, data) => setMetricCode(data.value)}
-                                compareType={compareType}
-                                onCompareChange={(event, data) => setCompareType(data.value)}
-                                metricValue={metricValue}
-                                onValueChange={(event, data) => setMetricValue(data.value)}
                                 metricDefinitions={metricDefinitions}
                                 setMetricDefinitions={setMetricDefinitions}
                                 metricsList={metricsList}

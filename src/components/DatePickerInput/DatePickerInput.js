@@ -28,6 +28,7 @@ export function DatePickerInput(props) {
             onDatesChange={onDateChange}
             focusedInput={focusedInput}
             onFocusChange={onFocusChange}
+            isOutsideRange={() => false}
             />
         </div>
     )

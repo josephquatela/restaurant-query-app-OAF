@@ -5,6 +5,19 @@ import './ResultsTable.css';
 
 export function ResultsTable(props) {
 
+    function parseReturnData(data, dataType = undefined) {
+        const type = typeof(data);
+        if (dataType == "discountRatio") {
+            const roundedPercent = (Math.round(data * 10000) / 10000) * 100
+            return roundedPercent.toString() + "%";
+        } else if (type === 'number') {
+            return data.toString();
+        } else if (type === 'string') {
+            return data.slice(0, 10) + " " + data.slice(11);
+        }
+        console.log("data " + data);
+    }
+
     return (
         <div className="resultsTableContainer">
             <Segment>
@@ -47,44 +60,48 @@ export function ResultsTable(props) {
                             <p className='resultsTableP'>Refund Amount</p>
                         </Grid.Column>
                     </Grid.Row>
-                    <Grid.Row color="grey">
-                        <Grid.Column textAlign="center">
-                            Test
-                        </Grid.Column>
-                        <Grid.Column textAlign="center">
-                            Test
-                        </Grid.Column>
-                        <Grid.Column textAlign="center">
-
-                        </Grid.Column>
-                        <Grid.Column textAlign="center">
-
-                        </Grid.Column>
-                        <Grid.Column textAlign="center">
-
-                        </Grid.Column>
-                        <Grid.Column textAlign="center">
-
-                        </Grid.Column>
-                        <Grid.Column textAlign="center">
-
-                        </Grid.Column>
-                        <Grid.Column textAlign="center">
-
-                        </Grid.Column>
-                        <Grid.Column textAlign="center">
-
-                        </Grid.Column>
-                        <Grid.Column textAlign="center">
-
-                        </Grid.Column>
-                        <Grid.Column textAlign="center">
-
-                        </Grid.Column>
-                        <Grid.Column textAlign="center">
-
-                        </Grid.Column>
-                    </Grid.Row>
+                    {props.activePageContent.map(row => {
+                        return (
+                            <Grid.Row color="black" key={row.orderNumber}>
+                                <Grid.Column textAlign="center">
+                                    {parseReturnData(row.restaurantId)}
+                                </Grid.Column>
+                                <Grid.Column textAlign="center">
+                                    {parseReturnData(row.busDt)}
+                                </Grid.Column>
+                                <Grid.Column textAlign="center">
+                                    {parseReturnData(row.orderNumber)}
+                                </Grid.Column>
+                                <Grid.Column textAlign="center">
+                                    {parseReturnData(row.orderTime)}
+                                </Grid.Column>
+                                <Grid.Column textAlign="center">
+                                    {parseReturnData(row.totalAmount)}
+                                </Grid.Column>
+                                <Grid.Column textAlign="center">
+                                    {parseReturnData(row.netAmount)}
+                                </Grid.Column>
+                                <Grid.Column textAlign="center">
+                                    {parseReturnData(row.itemSoldQty)}
+                                </Grid.Column>
+                                <Grid.Column textAlign="center">
+                                    {parseReturnData(row.beverageQty)}
+                                </Grid.Column>
+                                <Grid.Column textAlign="center">
+                                    {parseReturnData(row.discountAmount)}
+                                </Grid.Column>
+                                <Grid.Column textAlign="center">
+                                    {parseReturnData(row.itemDeletedAmount)}
+                                </Grid.Column>
+                                <Grid.Column textAlign="center">
+                                    {parseReturnData(row.discountRatio, "discountRatio")}
+                                </Grid.Column>
+                                <Grid.Column textAlign="center">
+                                    {parseReturnData(row.refundAmount)}
+                                </Grid.Column>
+                            </Grid.Row>
+                        )
+                    })}
                 </Grid>
             </Segment>
         </div>
