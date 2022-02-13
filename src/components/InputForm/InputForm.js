@@ -85,50 +85,6 @@ export function InputForm(props) {
         
         postData('https://customsearchquerytoolapi.azurewebsites.net/Search/Query', requestData)
         .then(resultsData => {
-            const data1 = [];
-            const data2 = [];
-            const data3 = [];
-            const data4 = [];
-            const data5 = [];
-            const data6 = [];
-            const data7 = [];
-            const data8 = [];
-            const data9 = [];
-            const data10 = [];
-            // props.setReturnedData(resultsData);
-            resultsData.forEach(data => {
-                if (data.restaurantId == 1) {
-                    data1.push(data);
-                } else if (data.restaurantId == 2) {
-                    data2.push(data)
-                } else if (data.restaurantId == 3) {
-                    data3.push(data)
-                } else if (data.restaurantId == 4) {
-                    data4.push(data)
-                } else if (data.restaurantId == 5) {
-                    data5.push(data)
-                } else if (data.restaurantId == 6) {
-                    data6.push(data)
-                } else if (data.restaurantId == 7) {
-                    data7.push(data)
-                } else if (data.restaurantId == 8) {
-                    data8.push(data)
-                } else if (data.restaurantId == 9) {
-                    data9.push(data)
-                } else if (data.restaurantId == 10) {
-                    data10.push(data)
-                }
-            })
-            props.setData1(data1);
-            props.setData1(data2);
-            props.setData1(data3);
-            props.setData1(data4);
-            props.setData1(data5);
-            props.setData1(data6);
-            props.setData1(data7);
-            props.setData1(data8);
-            props.setData1(data9);
-            props.setData1(data10);
             props.setReturnedData(resultsData);
         });
     }
@@ -147,11 +103,6 @@ export function InputForm(props) {
                         </Segment>
                         <Segment className='fieldSegment'> {/* Metric Selector Fields*/}
                             <Form.Field>
-                                {/* <MetricsList 
-                                metricsList={metricsList}
-                                setMetricsList={setMetricsList}
-                                />
-                                <Divider></Divider> */}
                                 <MetricSelectorInputs
                                 metricDefinitions={metricDefinitions}
                                 setMetricDefinitions={setMetricDefinitions}

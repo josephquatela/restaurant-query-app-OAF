@@ -1,14 +1,54 @@
-import { } from "semantic-ui-react";
-
-import { Grid, Segment } from 'semantic-ui-react';
+import { useEffect, useState } from "react";
+import { Button, Icon, Pagination } from "semantic-ui-react";
+import { Grid } from 'semantic-ui-react';
 import { parseReturnData } from "../../Utility";
 import './ResultsTable.css';
 
 export function ResultsTable(props) {
+    const itemsPerPage = 10;
+    const [activePageNumber, setActivePageNumber] = useState(1);
+    const [activePageContent, setActivePageContent] = useState([]);
+    const [filteredDataList, setFilteredDataList] = useState([]);
+    const [isShowingData, setIsShowingData] = useState(false);
+
+    function filterData(id, restaurantId) {
+        const filteredData = [];
+        for (var i = 0; i < props.returnedData.length; i++) {
+            if (props.returnedData[i][restaurantId] === id) {
+                filteredData.push(props.returnedData[i]);
+            }
+        }
+        setFilteredDataList(filteredData);
+        setActivePageContent(filteredData.slice(0, 11));
+    }
+
+    function changeResultsPage(data) {
+        setActivePageNumber(data.activePage);
+        const lowerLimit = 10 * activePageNumber - 10;
+        const upperLimit = 10 * activePageNumber;
+        setActivePageContent(filteredDataList.slice(lowerLimit, upperLimit));
+    }
+
+    useEffect(() => {
+        filterData(props.id, "restaurantId");
+    }, [props.returnedData]);
 
     return (
         <div className="resultsTableContainer">
-            <Segment>
+            {isShowingData ? 
+            <div>
+                <div style={{textAlign: "center"}}>
+                    <Pagination
+                    activePage={activePageNumber}
+                    onPageChange={(event, data) => changeResultsPage(data)}
+                    ellipsisItem={{
+                        content: <Icon name='ellipsis horizontal' />,
+                        icon: true,
+                    }}
+                    totalPages={Math.ceil(filteredDataList.length / itemsPerPage)}
+                    style={{marginTop: 24, marginBottom: 16}}
+                    />
+                </div>
                 <Grid centered columns={12} divided stretched verticalAlign="middle">
                     <Grid.Row>
                         <Grid.Column textAlign="center">
@@ -48,17 +88,17 @@ export function ResultsTable(props) {
                             <p className='resultsTableP'>Refund Amount</p>
                         </Grid.Column>
                     </Grid.Row>
-                    {props.activePageContent.map(row => {
+                    {activePageContent.map(row => {
                         return (
                             <Grid.Row color="black" key={row.orderNumber}>
                                 <Grid.Column textAlign="center">
                                     {parseReturnData(row.restaurantId)}
                                 </Grid.Column>
                                 <Grid.Column textAlign="center">
-                                    {parseReturnData(row.busDt)}
+                                    {parseReturnData(row.busDt, "busDt")}
                                 </Grid.Column>
                                 <Grid.Column textAlign="center">
-                                    {parseReturnData(row.orderNumber)}
+                                    {parseReturnData(row.orderNumber, "orderNumber")}
                                 </Grid.Column>
                                 <Grid.Column textAlign="center">
                                     {parseReturnData(row.orderTime)}
@@ -70,10 +110,10 @@ export function ResultsTable(props) {
                                     {parseReturnData(row.netAmount)}
                                 </Grid.Column>
                                 <Grid.Column textAlign="center">
-                                    {parseReturnData(row.itemSoldQty)}
+                                    {parseReturnData(row.itemSoldQty, "itemSoldQty")}
                                 </Grid.Column>
                                 <Grid.Column textAlign="center">
-                                    {parseReturnData(row.beverageQty)}
+                                    {parseReturnData(row.beverageQty, "beverageQty")}
                                 </Grid.Column>
                                 <Grid.Column textAlign="center">
                                     {parseReturnData(row.discountAmount)}
@@ -91,7 +131,21 @@ export function ResultsTable(props) {
                         )
                     })}
                 </Grid>
-            </Segment>
+            </div>
+            : null
+            }
+            <div style={{textAlign: "center"}}>
+                {isShowingData ? 
+                <Button className="dropdownButton" icon circular color="yellow"
+                onClick={(event, data) => {setIsShowingData(false)}}>
+                <Icon name="arrow alternate circle up" color="black" />
+                </Button> :
+                <Button className="dropdownButton" icon circular color="yellow"
+                onClick={(event, data) => {setIsShowingData(true)}}>
+                    <Icon name="arrow alternate circle down" color="black" />
+                </Button>
+                }
+            </div>
         </div>
     )
 }

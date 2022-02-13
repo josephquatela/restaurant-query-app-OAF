@@ -113,12 +113,16 @@ export const amPmOptions = [
 
 export function parseReturnData(data, dataType = undefined) {
     const type = typeof(data);
-    if (dataType == "discountRatio") {
+    if (dataType === "discountRatio") {
         const roundedPercent = (Math.round(data * 10000) / 10000) * 100
         return roundedPercent.toString() + "%";
-    } else if (type === 'number') {
+    } else if (dataType === 'orderNumber' || dataType === 'itemSoldQty' || dataType === 'beverageQty') {
+        return data.toString()
+    }else if (type === 'number') {
         return "$" + data.toString();
+    } else if (dataType === 'busDt') {
+        return data.slice(0, 10)
     } else if (type === 'string') {
-        return data.slice(0, 10) + " " + data.slice(11);
+        return data.slice(11);
     }
 }

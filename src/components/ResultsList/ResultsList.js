@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Container, Grid, Icon, Pagination, Segment } from 'semantic-ui-react';
+import { Container, Grid, Segment } from 'semantic-ui-react';
 import { parseReturnData } from '../../Utility';
 import { ResultsTable } from '../ResultsTable/ResultsTable';
 import './ResultsList.css';
 
 export function ResultsList(props) {
-    const itemsPerPage = 10;
-    const [activePageNumber, setActivePageNumber] = useState(1);
+    
     const [dataStatuses, setDataStatuses] = useState([
         {
             key: 1,
@@ -67,7 +66,7 @@ export function ResultsList(props) {
         }
         
         props.returnedData.map(data => {
-            if (data.restaurantId == id) {
+            if (data.restaurantId === id) {
                 newDataStatuses[id - 1][hasData] = true;
             }
         })
@@ -77,7 +76,7 @@ export function ResultsList(props) {
         var total = 0;
         var size = 0;
         for (var i = 0; i < props.returnedData.length; ++i) {
-            if (props.returnedData[i][restaurantId] == id) {
+            if (props.returnedData[i][restaurantId] === id) {
                 total += props.returnedData[i][property];
                 size += 1;
             }
@@ -88,25 +87,19 @@ export function ResultsList(props) {
             <p>{parseReturnData(avg, property)}</p>
         )
     }
-    
-    function changeResultsPage(data) {
-        setActivePageNumber(data.activePage);
-        const lowerLimit = 10 * activePageNumber - 10;
-        const upperLimit = 10 * activePageNumber;
-        props.setActivePageContent(props.returnedData.slice(lowerLimit, upperLimit));
-    }
 
     for (var i = 0; i < 11; ++i) {
         checkDataStatuses(i, "hasData");
     }
-    if (props.returnedData.length != 0) {
+
+    if (props.returnedData.length !== 0) {
     return (
-        <Container fluid style={{backgroundColor: "grey"}}>
+        <Container fluid>
             {dataStatuses.map(dataMember => {
                 if (dataMember.hasData) {
                     return (
                         <div>
-                            <Segment>
+                            <Segment style={{marginBottom: 24}}>
                                 <div className="avgRestaurantContainer">
                                     <h1 className='avgRestaurantTitle'>Restaurant {dataMember.id}</h1>
                                     <Grid centered columns={12} divided stretched verticalAlign="middle" >
@@ -162,8 +155,12 @@ export function ResultsList(props) {
                                             {calcAverage(dataMember.id, "refundAmount", "restaurantId")}
                                         </Grid.Column>
                                     </Grid.Row>
-                                                                </Grid>
+                                    </Grid>
                                 </div>
+                                <ResultsTable
+                                returnedData={props.returnedData}
+                                id={dataMember.id}
+                                />
                             </Segment>
                         </div>
                     )
@@ -172,32 +169,8 @@ export function ResultsList(props) {
         </Container>
     )
     } else {
-    return (
-        <h1 style={{color: "white", marginTop: 124}}>No results</h1>
-    )
+        return (
+            <h1 style={{color: "white", marginTop: 124}}>No results</h1>
+        )
     }
-
-
-
-
-    // if (props.returnedData.length != 0) {
-    //     return (
-    //         <div style={{textAlign: "center"}}>
-    //             <Pagination
-    //             activePage={activePageNumber}
-    //             onPageChange={(event, data) => changeResultsPage(data)}
-    //             ellipsisItem={{
-    //                 content: <Icon name='ellipsis horizontal' />,
-    //                 icon: true,
-    //             }}
-    //             totalPages={Math.ceil(props.returnedData.length / itemsPerPage)}
-    //             />
-    //             <ResultsTable activePageContent={props.activePageContent} />
-    //         </div>
-    //     )
-    // } else {
-    //     return (
-    //         <h1 style={{color: "white", marginTop: 124}}>No results</h1>
-    //     )
-    // }
 }

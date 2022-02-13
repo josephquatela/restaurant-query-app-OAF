@@ -3,3 +3,8 @@
     border-radius: 8px;
     background-color: rgb(209, 209, 209);
 }
+
+.dropdownButton {
+    position: absolute;
+    transform: translateX(-16px);
+}

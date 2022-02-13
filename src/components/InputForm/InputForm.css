@@ -12,6 +12,7 @@ h2 {
 .inputLeft {
     display: flex;
     flex-direction: column;
+    max-width: min-content !important;
 }
 
 .inputRight {
