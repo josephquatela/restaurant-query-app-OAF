@@ -17,7 +17,7 @@ export function InputForm(props) {
     const [metricsList, setMetricsList] = useState([{
         metricCode: "",
         compareType: "",
-        metricValue: "",
+        value: "",
     }]);
 
     //Date state vars
@@ -64,7 +64,7 @@ export function InputForm(props) {
             newMetricsList.push(metricsList[i]);
         }
         newMetricsList.forEach(metric => {
-            metric.metricValue = parseFloat(metric.metricValue);
+            metric.value = parseFloat(metric.value);
         });
         setMetricsList(newMetricsList);
     }
@@ -87,6 +87,7 @@ export function InputForm(props) {
         .then(resultsData => {
             props.setReturnedData(resultsData);
         });
+        console.log(requestData);
     }
 
     return(

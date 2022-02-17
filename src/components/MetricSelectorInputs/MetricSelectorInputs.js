@@ -46,7 +46,7 @@ export function MetricSelectorInputs(props) {
         <div>
             {props.metricsList.map((metric, index) => {
                 return (
-                    <div className="metricsStyleContainer">
+                    <div className="metricsStyleContainer" key={index}>
                         <Label ribbon>Metric {index + 1}</Label>
                         {metricCount > 1 ? 
                         <Button
@@ -87,9 +87,9 @@ export function MetricSelectorInputs(props) {
                             value={ metric.compareType }
                             onChange={ (event, data) => handleMetricsListChange(data.value, index, "compareType") } />
                             <Input placeholder='Value'
-                            value={ metric.metricValue }
+                            value={ metric.value }
                             style={{width: 80}}
-                            onChange={ (event, data) => handleMetricsListChange(data.value, index, "metricValue") } />
+                            onChange={ (event, data) => handleMetricsListChange(data.value, index, "value") } />
                         </div>
                     </div>
                 )

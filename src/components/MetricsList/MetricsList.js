@@ -5,10 +5,10 @@ export function MetricsList(props) {
 
     return (
         <div className='metricsListContainer'>
-            {props.metricsList.map(metric => {
+            {props.metricsList.map(metric, index => {
 
                 return (
-                    <div className="metricsContainer">
+                    <div className="metricsContainer" key={index}>
                         <Button
                         type='button'
                         animated
