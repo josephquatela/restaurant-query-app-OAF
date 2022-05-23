@@ -10,7 +10,7 @@ Selection by (individually or combinationally):
 - Various Metric Criteria
 
 Results sorted by a restaurant card with a summary given for each, expandable to show all data.
------------
+
 ## Hosted
 ### Data only available through dates in October 2021!
 https://r-query-oaf-jq.surge.sh/
